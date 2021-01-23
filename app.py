@@ -36,7 +36,7 @@ def send_current_data():
 @app.route("/send_data", methods=["POST"])
 def update_data():
     given_data = json.loads(request.data)
-    students{given_data['id']} = given_data
+    students[given_data['id']] = given_data
     return
 
 
