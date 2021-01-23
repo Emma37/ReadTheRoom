@@ -7,6 +7,17 @@
   font-family: "Montserrat";
   src: url("/src/fonts/Montserrat-Regular.ttf") format("truetype");
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -21,15 +32,15 @@
   --bs-white: #fff;
   --bs-gray: #6c757d;
   --bs-gray-dark: #343a40;
-  --bs-primary: #0d6efd;
-  --bs-secondary: #6c757d;
-  --bs-success: #198754;
-  --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
-  --bs-dark: #212529;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-primary: #009fb7;
+  --bs-secondary: #fed766;
+  --bs-light: #eff1f3;
+  --bs-mid: #696773;
+  --bs-dark: #272727;
+  --bs-danger: #ea3b41;
+  --bs-warning: #fd8931;
+  --bs-success: #67bf3b;
+  --bs-font-sans-serif: "Montserrat", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
@@ -53,7 +64,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  background-color: #fff;
+  background-color: #eff1f3;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -207,11 +218,11 @@ sup {
 }
 
 a {
-  color: #0d6efd;
+  color: #009fb7;
   text-decoration: underline;
 }
 a:hover {
-  color: #0a58ca;
+  color: #007f92;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -571,7 +582,7 @@ progress {
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #fff;
+  background-color: #eff1f3;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   max-width: 100%;
@@ -2157,35 +2168,35 @@ progress {
 }
 
 .border-primary {
-  border-color: #0d6efd !important;
+  border-color: #009fb7 !important;
 }
 
 .border-secondary {
-  border-color: #6c757d !important;
-}
-
-.border-success {
-  border-color: #198754 !important;
-}
-
-.border-info {
-  border-color: #0dcaf0 !important;
-}
-
-.border-warning {
-  border-color: #ffc107 !important;
-}
-
-.border-danger {
-  border-color: #dc3545 !important;
+  border-color: #fed766 !important;
 }
 
 .border-light {
-  border-color: #f8f9fa !important;
+  border-color: #eff1f3 !important;
+}
+
+.border-mid {
+  border-color: #696773 !important;
 }
 
 .border-dark {
-  border-color: #212529 !important;
+  border-color: #272727 !important;
+}
+
+.border-danger {
+  border-color: #ea3b41 !important;
+}
+
+.border-warning {
+  border-color: #fd8931 !important;
+}
+
+.border-success {
+  border-color: #67bf3b !important;
 }
 
 .border-white {
@@ -2943,35 +2954,35 @@ progress {
 }
 
 .text-primary {
-  color: #0d6efd !important;
+  color: #009fb7 !important;
 }
 
 .text-secondary {
-  color: #6c757d !important;
-}
-
-.text-success {
-  color: #198754 !important;
-}
-
-.text-info {
-  color: #0dcaf0 !important;
-}
-
-.text-warning {
-  color: #ffc107 !important;
-}
-
-.text-danger {
-  color: #dc3545 !important;
+  color: #fed766 !important;
 }
 
 .text-light {
-  color: #f8f9fa !important;
+  color: #eff1f3 !important;
+}
+
+.text-mid {
+  color: #696773 !important;
 }
 
 .text-dark {
-  color: #212529 !important;
+  color: #272727 !important;
+}
+
+.text-danger {
+  color: #ea3b41 !important;
+}
+
+.text-warning {
+  color: #fd8931 !important;
+}
+
+.text-success {
+  color: #67bf3b !important;
 }
 
 .text-white {
@@ -3015,39 +3026,39 @@ progress {
 }
 
 .bg-primary {
-  background-color: #0d6efd !important;
+  background-color: #009fb7 !important;
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
-}
-
-.bg-success {
-  background-color: #198754 !important;
-}
-
-.bg-info {
-  background-color: #0dcaf0 !important;
-}
-
-.bg-warning {
-  background-color: #ffc107 !important;
-}
-
-.bg-danger {
-  background-color: #dc3545 !important;
+  background-color: #fed766 !important;
 }
 
 .bg-light {
-  background-color: #f8f9fa !important;
+  background-color: #eff1f3 !important;
+}
+
+.bg-mid {
+  background-color: #696773 !important;
 }
 
 .bg-dark {
-  background-color: #212529 !important;
+  background-color: #272727 !important;
+}
+
+.bg-danger {
+  background-color: #ea3b41 !important;
+}
+
+.bg-warning {
+  background-color: #fd8931 !important;
+}
+
+.bg-success {
+  background-color: #67bf3b !important;
 }
 
 .bg-body {
-  background-color: #fff !important;
+  background-color: #eff1f3 !important;
 }
 
 .bg-white {
@@ -6530,17 +6541,6 @@ progress {
     display: none !important;
   }
 }
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
 .navbar__brand {
   display: flex;
   align-items: center;
@@ -6555,6 +6555,11 @@ progress {
   color: #fed766;
   font-size: 2rem;
   font-family: "Yusei Magic", sans-serif;
+}
+
+.webcam-feed {
+  width: 100%;
+  transform: rotateY(180deg);
 }
 
 /*# sourceMappingURL=index.css.map */
