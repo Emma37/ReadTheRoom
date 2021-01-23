@@ -1,10 +1,21 @@
+$primary: #009fb7;
+$secondary: #fed766;
+$light: #eff1f3;
+$mid: #696773;
+$dark: #272727;
+$danger: #ea3b41;
+$warning: #fd8931;
+$success: #67bf3b;
+
 $theme-colors: (
-  "primary": #009fb7,
-  "secondary": #fed766,
-  "light": #eff1f3,
-  "mid": #696773,
-  "dark": #272727,
-  "danger": #ea3b41,
-  "warning": #fd8931,
-  "success": #67bf3b,
+  "primary": $primary,
+  "secondary": $secondary,
+  "light": $light,
+  "mid": $mid,
+  "dark": $dark,
+  "danger": $danger,
+  "warning": $warning,
+  "success": $success,
 );
+
+$body-bg: $light;

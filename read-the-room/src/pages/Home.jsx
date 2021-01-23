@@ -9,12 +9,22 @@ const Home = () => {
             <div className="row">
                 <div className="col-lg-6">
                     <Link to="/teacher">
+                        <div>
+                            👩‍🏫
+                        </div>
+                        <div>
                             Teacher
+                        </div>
                     </Link>
                 </div>
                 <div className="col-lg-6">
                     <Link to="/student">
+                        <div>
+                            👨‍🎓
+                        </div>
+                        <div>
                             Student
+                        </div>
                     </Link>
                 </div>
             </div>
