@@ -25,12 +25,11 @@ jobs:
         cd read-the-room
         npm install
         npm run build --if-present
-        npm run test --if-present
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'hexcambridgefrontend'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_66c79720e42d4caeb445df92df88d87b }}
-        package: .
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c642444f29494564b01342e0464a1a0d }}
+        package: $(System.DefaultWorkingDirectory)/read-the-room/build
