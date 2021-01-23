@@ -1,6 +1,7 @@
 from flask import Flask, send_from_directory, request
 from collections import Counter
 import json
+import os
 import datetime
 
 app = Flask(__name__)
@@ -56,7 +57,10 @@ def update_data():
 @app.route("/<string:path>")
 def catch_all(path):
     print(path)
-    return send_from_directory("read-the-room/build", path)
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory("read-the-room/build", path)
+    else:
+        return send_from_directory("read-the-room/build", 'index.html')
 
 
 @app.route("/static/js/<path:path>")
