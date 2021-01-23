@@ -32,4 +32,4 @@ jobs:
         app-name: 'hexcambridgefrontend'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_c642444f29494564b01342e0464a1a0d }}
-        package: .
+        package: ./build
