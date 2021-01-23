@@ -5,10 +5,19 @@ import { Link } from "react-router-dom";
 const Home = () => {
     return (
         <>
-            <h1>Testing</h1>
-
-            <Link to="/teacher">Teacher</Link>
-            <Link to="/student">Student</Link>
+            <h1>Please select</h1>
+            <div className="row">
+                <div className="col-lg-6">
+                    <Link to="/teacher">
+                            Teacher
+                    </Link>
+                </div>
+                <div className="col-lg-6">
+                    <Link to="/student">
+                            Student
+                    </Link>
+                </div>
+            </div>
         </>
     )
 }
