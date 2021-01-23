@@ -1,4 +1,12 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Yusei Magic";
+  src: url("/src/fonts/YuseiMagic-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/src/fonts/Montserrat-Regular.ttf") format("truetype");
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -6521,6 +6529,32 @@ progress {
   .d-print-none {
     display: none !important;
   }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.navbar__logo {
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
+}
+.navbar__title {
+  color: #fed766;
+  font-size: 2rem;
+  font-family: "Yusei Magic", sans-serif;
 }
 
 /*# sourceMappingURL=index.css.map */

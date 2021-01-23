@@ -1,0 +1,19 @@
+.navbar {
+  &__brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  &__logo {
+    width: 3rem;
+    height: 3rem;
+    vertical-align: middle;
+  }
+
+  &__title {
+    color: $secondary;
+    font-size: 2rem;
+    font-family: "Yusei Magic", sans-serif;
+  }
+}
