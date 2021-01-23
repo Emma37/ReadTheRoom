@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 from collections import Counter
 import json
 import datetime
@@ -49,7 +49,7 @@ def update_data():
     given_data = json.loads(request.data)
     given_data['date'] = datetime.datetime.now()
     students[given_data['id']] = given_data
-    return
+    return {"success": True}
 
 
 @app.route("/<path:path>")
