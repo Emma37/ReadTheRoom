@@ -3,6 +3,7 @@ import json
 
 app = Flask(__name__)
 
+students = {}
 
 @app.route("/")
 def index():
