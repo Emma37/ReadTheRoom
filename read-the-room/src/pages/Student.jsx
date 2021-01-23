@@ -37,10 +37,8 @@ const Student = () => {
         <>
         <h1>Class: Algebra 28/01/2021</h1>
 
-
-
         <div id="container">
-            <video autoplay="true" id="videoElement" className="bg-dark">
+            <video autoPlay="true" id="videoElement" className="bg-dark">
             </video>
         </div>
         <select>
