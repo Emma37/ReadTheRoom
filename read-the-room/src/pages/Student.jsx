@@ -5,15 +5,16 @@ import SpeechButton from '../components/SpeechButton';
 
 const Student = () => {
 
-    var video = document.querySelector("#videoElement");
- 
-    if (navigator.mediaDevices.getUserMedia) {       
-        navigator.mediaDevices.getUserMedia({video: true})
+    const videoRef = React.createRef();
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: {facingMode: "user"}})
     .then(function(stream) {
-        video.srcObject = stream;
+        videoRef.current.srcObject = stream;
     })
     .catch(function(err0r) {
-        console.log("Something went wrong!");
+        console.log(err0r);
+        console.log("Something went wrong 2!");
     });
     }
 
@@ -40,7 +41,7 @@ const Student = () => {
 
 
         <div id="container">
-            <video autoplay="true" id="videoElement" className="bg-dark">
+            <video autoPlay playsInline id="videoElement" className="bg-dark" ref={videoRef}>
             </video>
         </div>
         <select>
