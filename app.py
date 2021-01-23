@@ -21,3 +21,7 @@ def test_json():
 @app.route("/<path:path>")
 def home(path):
     return send_from_directory("client/public", path)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
