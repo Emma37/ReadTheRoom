@@ -125,7 +125,7 @@ class Student extends React.Component{
                       showOverrideSection: false,
                       cameraOptions: [],
                       overridingDisabled: false,
-                      overridingEmotion: "neutral"
+                      overridingEmotion: "neutral",
                       currentStream: null
                       };
     }
