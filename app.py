@@ -3,11 +3,17 @@ from collections import Counter
 import json
 import os
 import datetime
+import operator
+from azure.cognitiveservices.vision.face import FaceClient
+from msrest.authentication import CognitiveServicesCredentials
+from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person
 
 app = Flask(__name__)
 
 students = {}
 timeout_time = 10
+KEY = "716ae75b38b84acfb73467fb1d65fd7d"
+ENDPOINT = "https://hex-camb-faceservice.cognitiveservices.azure.com/"
 
 @app.route("/")
 def index():
@@ -43,6 +49,32 @@ def send_current_data():
     return {"users": emotion_counts,
             "commands": command_counts
             }
+
+@app.route("/image_analysis")
+def check_emotion():
+    face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+
+    frame = request.data
+
+    detected_faces = face_client.face.detect_with_stream(frame, return_face_attributes=["emotion"])
+    if not detected_faces:
+        emotion = 'absent'
+
+    else:
+        face_emotions   = detected_faces[0].face_attributes.emotion
+        scores = {}
+        scores['anger']     = face_emotions.anger
+        scores['contempt']  = face_emotions.contempt
+        scores['disgust']   = face_emotions.disgust
+        scores['fear']      = face_emotions.fear
+        scores['happiness'] = face_emotions.happiness
+        scores['neutral']   = face_emotions.neutral
+        scores['sadness']   = face_emotions.sadness
+        scores['surprise']  = face_emotions.surprise
+        emotion = max(scores.items(), key=operator.itemgetter(1))[0]
+
+    return {"max_emotion": emotion}
+
 
 
 @app.route("/send_data", methods=["POST"])
