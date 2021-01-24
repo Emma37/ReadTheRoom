@@ -83,26 +83,33 @@ class Student extends React.Component{
     sendFaceAtIntervals = (imageCapture) => {
         const url = "./image_analysis"
         var intervalObject = setInterval(() => {
-            this.captureImage(imageCapture)
-            .then(blobData => {
-               axios({
-                method: "post",
-                url: url,
-                // contentType: "application/octet-stream",
-                headers:{
-                    "content-type":"application/octet-stream",
-                },
-                data: blobData
-               })
-               .then(data => {
-                  console.log(JSON.stringify(data));
-                  this.setState({maxEmotion: data.data.max_emotion});
-                  this.sendCurrentData();
-              })
-              //  .catch(function(err) {
-              //     console.log(JSON.stringify(err));
-              // })
-           });
+            if (!this.state.overridingDisabled){
+                this.captureImage(imageCapture)
+                .then(blobData => {
+                   axios({
+                    method: "post",
+                    url: url,
+                    // contentType: "application/octet-stream",
+                    headers:{
+                        "content-type":"application/octet-stream",
+                    },
+                    data: blobData
+                   })
+                   .then(data => {
+                      console.log(JSON.stringify(data));
+                      // Have to do this check again in case the request come back after
+                      // the user's overridden.
+                      if (!this.state.overridingDisabled){
+                        this.setState({maxEmotion: data.data.max_emotion});
+                      }
+                      this.sendCurrentData();
+                  })
+                });
+            }
+            else{
+                console.log("Skipped checking for a new face");
+                this.sendCurrentData();
+            }
         }, 3000);
         return intervalObject;
     }
@@ -116,7 +123,9 @@ class Student extends React.Component{
                       internetConnectionMessage: false,
                       cannotSeeSlidesMessage: false,
                       showOverrideSection: false,
-                      cameraOptions: []
+                      cameraOptions: [],
+                      overridingDisabled: false,
+                      overridingEmotion: "neutral"
                       };
     }
 
@@ -171,6 +180,15 @@ class Student extends React.Component{
         }
     }
 
+    overrideEmotion = () => {
+        this.setState({ showOverrideSection: false, overridingDisabled: true });
+        setTimeout(() => {this.setState({ overridingDisabled: false })}, 10000);
+        const newValue = this.state.overridingEmotion;
+        this.setState({overridingEmotion: "neutral"});
+        console.log(newValue);
+        this.setState({maxEmotion: newValue});
+    }
+
     render(){
         const items = [];
         var emotionMap = {"neutral": "🙂 Neutral",
@@ -199,24 +217,21 @@ class Student extends React.Component{
         // }
 
         const OverrideButton =
-                <button className="btn btn-danger mt-3" onClick={() => this.setState({ showOverrideSection: true })}>
+                <button className="btn btn-danger mt-3" onClick={() => this.setState({ showOverrideSection: true })} disabled={ this.state.overridingDisabled }>
                     My detected emotion is incorrect
                 </button>
         ;
 
         const OverrideSection =
             <>
-                <select className="form-select form-select-lg mt-3">
+                <select className="form-select form-select-lg mt-3" onChange={ (e) => {this.setState({overridingEmotion: e.target.value})} }>
                 {
                     Object.keys(emotionMap).map((key, index) => (
-                    <option key={index}>{emotionMap[key]}</option>
+                        key === "absent" ? null : <option key={index} value={key}>{emotionMap[key]}</option>
                     ))
                 }
                 </select>
-                <select className="form-select form-select-lg mt-3">
-                {this.state.cameraOptions}
-                </select>
-                <button className="btn btn-primary mt-3" onClick={() => this.setState({ showOverrideSection: false })}>Submit</button>
+                <button className="btn btn-primary mt-3" onClick={ this.overrideEmotion }>Submit</button>
             </>
         ;
 
