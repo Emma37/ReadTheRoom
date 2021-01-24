@@ -9,6 +9,23 @@ class Student extends React.Component{
     videoRef = React.createRef();
     sendIntervalObject = null;
     userId = Math.floor(Math.random() * 10000);
+    canvas = document.createElement('canvas');
+
+    browserName = (function(){
+        var ua= navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if(/trident/i.test(M[1])){
+            tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+            return 'IE '+(tem[1] || '');
+        }
+        if(M[1]=== 'Chrome'){
+            tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+            if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        }
+        M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+        if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+        return M.join(' ');
+    })();
 
     sendCurrentData = () => {
         var dataToSend = {main_emotion: this.state.maxEmotion, id: this.userId};
@@ -33,32 +50,40 @@ class Student extends React.Component{
         .then(data => {console.log(JSON.stringify(data))})
     }
 
+    captureImage = (imageCapture) => {
+        if (this.browserName.includes("Safari")){
+            return imageCapture.takePhoto()
+        }
+        else{
+            return (imageCapture.grabFrame()
+                   .then(img => {
+                        console.log(img); // ImageBitmap
+                        return new Promise(res => {
+                          // resize it to the size of our ImageBitmap
+                          this.canvas.width = img.width;
+                          this.canvas.height = img.height;
+                          // try to get a bitmaprenderer context
+                          let ctx = this.canvas.getContext('bitmaprenderer');
+                          if(ctx) {
+                            // transfer the ImageBitmap to it
+                            ctx.transferFromImageBitmap(img);
+                          }
+                          else {
+                            // in case someone supports createImageBitmap only
+                            // twice in memory...
+                            this.canvas.getContext('2d').drawImage(img,0,0);
+                          }
+                          // get it back as a Blob
+                          this.canvas.toBlob(res);
+                        });
+                      }))
+        }
+    }
+
     sendFaceAtIntervals = (imageCapture) => {
         const url = "./image_analysis"
-        const canvas = document.createElement('canvas');
         var intervalObject = setInterval(() => {
-            imageCapture.grabFrame()
-            .then(img => {
-                console.log(img); // ImageBitmap
-                return new Promise(res => {
-                  // resize it to the size of our ImageBitmap
-                  canvas.width = img.width;
-                  canvas.height = img.height;
-                  // try to get a bitmaprenderer context
-                  let ctx = canvas.getContext('bitmaprenderer');
-                  if(ctx) {
-                    // transfer the ImageBitmap to it
-                    ctx.transferFromImageBitmap(img);
-                  }
-                  else {
-                    // in case someone supports createImageBitmap only
-                    // twice in memory...
-                    canvas.getContext('2d').drawImage(img,0,0);
-                  }
-                  // get it back as a Blob
-                  canvas.toBlob(res);
-                });
-              })
+            this.captureImage(imageCapture)
             .then(blobData => {
                axios({
                 method: "post",
@@ -173,18 +198,18 @@ class Student extends React.Component{
         //     }
         // }
 
-        const OverrideButton = 
+        const OverrideButton =
                 <button className="btn btn-danger mt-3" onClick={() => this.setState({ showOverrideSection: true })}>
                     My detected emotion is incorrect
                 </button>
         ;
 
-        const OverrideSection = 
+        const OverrideSection =
             <>
                 <select className="form-select form-select-lg mt-3">
                 {
-                    Object.keys(emotionMap).map((key, index) => ( 
-                    <option key={index}>{emotionMap[key]}</option> 
+                    Object.keys(emotionMap).map((key, index) => (
+                    <option key={index}>{emotionMap[key]}</option>
                     ))
                 }
                 </select>
