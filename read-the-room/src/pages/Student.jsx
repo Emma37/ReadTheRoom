@@ -259,7 +259,7 @@ class Student extends React.Component{
                 <button className="btn btn-secondary" onClick={() => this.setState({ showOverrideSection: true })} disabled={ this.state.overridingDisabled }>
                     <span className="override-button">
                         <span className="override-button__icon">⚠</span>
-                        <span>The detected emotion is incorrect</span>
+                        <span>That's not how I feel</span>
                     </span>
                 </button>
         ;
