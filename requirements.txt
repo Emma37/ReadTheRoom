@@ -1,1 +1,2 @@
 azure-cognitiveservices-vision-face
+xgboost
