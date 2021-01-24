@@ -47,10 +47,11 @@ def send_current_data():
     emotion_counts = Counter(students[s]["main_emotion"] for s in students)
     emotion_counts["total_students"] = len(students.keys())
     # active_students calculated on some timeout function + no students detected?
-    command_counts = Counter(students[s]["active_command"] for s in students)
+    command_counts = Counter(students[s]["active_command"] for s in students if "active_command" in students[s].keys())
     return {"users": emotion_counts,
             "commands": command_counts
             }
+
 
 @app.route("/image_analysis", methods=["POST"])
 def check_emotion():
@@ -77,7 +78,6 @@ def check_emotion():
 
     print(emotion)
     return {"max_emotion": emotion}
-
 
 
 @app.route("/send_data", methods=["POST"])
