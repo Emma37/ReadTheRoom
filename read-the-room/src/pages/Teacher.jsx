@@ -40,7 +40,7 @@ class Teacher extends React.Component{
             "😮 Surprise": 0,
             "🤔 Confused": 0,
         };
-        var mockAttendanceData = [{title: "Absent", value: 5,
+        var mockAttendanceData = [{title: "Absent", value: 1,
                                    color: this.absentColor}]
         this.state = {emotionsData: data, attendanceData: mockAttendanceData};
     }
@@ -73,10 +73,10 @@ class Teacher extends React.Component{
                     absentStudents += givenData.users.absent;
                 }
                 if (presentStudents === 0){
-                    attendanceData = [{title: "Absent", value: 5, color: this.absentColor}];
+                    attendanceData = [{title: "Absent", value: 1, color: this.absentColor}];
                 }
                 else if (absentStudents === 0){
-                    attendanceData = [{title: "Present", value: 5, color: this.presentColor}];
+                    attendanceData = [{title: "Present", value: presentStudents, color: this.presentColor}];
                 }
                 else{
                     attendanceData = [{title: "Absent", value: absentStudents, color: this.absentColor},
