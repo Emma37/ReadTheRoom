@@ -126,6 +126,7 @@ class Student extends React.Component{
                       cameraOptions: [],
                       overridingDisabled: false,
                       overridingEmotion: "neutral"
+                      currentStream: null
                       };
     }
 
@@ -142,6 +143,44 @@ class Student extends React.Component{
 
         this.setState({cameraOptions: newCameraOptions});
         console.log(this.state.cameraOptions);
+    }
+
+
+
+    stopMediaTracks = (stream) => {
+        stream.getTracks().forEach(track => {
+          track.stop();
+        });
+    }
+
+    handleChange = (e) => {
+        if (typeof currentStream !== 'undefined') {
+            this.stopMediaTracks(this.state.currentStream);
+          }
+        const videoConstraints = {};
+        if (e.target.value === '') {
+            videoConstraints.facingMode = 'environment';
+        } else {
+            videoConstraints.deviceId = { exact: e.target.value };
+        }
+        const constraints = {
+            video: videoConstraints,
+            audio: false
+        };
+
+        navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(stream => {
+        this.setState({currentStream: stream});
+        this.videoRef.current.srcObject = stream;
+        return navigator.mediaDevices.enumerateDevices();
+        })
+        .then(this.gotDevices)
+        .catch(error => {
+        console.error(error);
+        });
+
+        console.log("test", this.state.currentStream);
     }
 
     componentDidMount(){
@@ -252,7 +291,7 @@ class Student extends React.Component{
                                 </video>
                             </div>
                         </div>
-                        <select className="form-select form-select-lg">
+                        <select className="form-select form-select-lg"  onChange={this.handleChange}>
                             {this.state.cameraOptions}
                         </select>
                     </div>
@@ -286,7 +325,6 @@ class Student extends React.Component{
                                     </div>
                                 </div>
                                 { this.state.showOverrideSection ? OverrideSection : OverrideButton }
-
                             </div>
                         </div>
                         <div className="mt-3 divider-top pt-4">
