@@ -134,7 +134,6 @@ class Teacher extends React.Component{
                     <AttendancePieChart attendanceData={this.state.attendanceData}/>
                 </div>
             </div>
-            // <SimpleNotification message="You're on mute"/>
         </>
     )
   }
