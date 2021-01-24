@@ -1,0 +1,9 @@
+.override-button {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    font-size: 2rem;
+    padding-right: 0.5rem;
+  }
+}

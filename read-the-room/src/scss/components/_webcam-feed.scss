@@ -1,4 +1,13 @@
 .webcam-feed {
   width: 100%;
-  transform: rotateY(180deg);
+
+  video {
+    transform: rotateY(180deg);
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
+
+  &__notice {
+    border-radius: 0.25rem 0.25rem 0 0;
+    font-weight: bold;
+  }
 }

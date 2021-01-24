@@ -1,3 +1,8 @@
 .data-item {
   font-size: 1.5rem;
+  text-align: center;
+
+  @include media-breakpoint-up(lg) {
+    text-align: left;
+  }
 }

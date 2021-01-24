@@ -1,11 +1,11 @@
 @charset "UTF-8";
 @font-face {
   font-family: "Yusei Magic";
-  src: url("fonts/YuseiMagic-Regular.ttf") format("truetype");
+  src: url("/src/fonts/YuseiMagic-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Montserrat";
-  src: url("fonts/Montserrat-Regular.ttf") format("truetype");
+  src: url("/src/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 .sr-only {
   position: absolute;
@@ -16,6 +16,10 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.ml-3 {
+  margin-left: 1rem;
 }
 
 :root {
@@ -6543,7 +6547,7 @@ progress {
 }
 .btn {
   display: inline-block;
-  font-weight: 400;
+  font-weight: bold;
   line-height: 1.5;
   color: #212529;
   text-align: center;
@@ -8066,13 +8070,20 @@ textarea.form-control-lg {
 
 .webcam-feed {
   width: 100%;
+}
+.webcam-feed video {
   transform: rotateY(180deg);
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+.webcam-feed__notice {
+  border-radius: 0.25rem 0.25rem 0 0;
+  font-weight: bold;
 }
 
 .speech-button {
   position: relative;
+  flex-shrink: 0;
   margin-bottom: 2rem;
-  margin-right: 1rem;
   border: 3px solid #009fb7;
   background-color: #009fb7;
   font-weight: bold;
@@ -8102,6 +8113,15 @@ textarea.form-control-lg {
   opacity: 0.4;
   transition: opacity 0.01s ease-out;
 }
+.speech-button__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (min-width: 992px) {
+  .speech-button__container {
+    justify-content: space-around;
+  }
+}
 
 .divider-top {
   border-top: 2px solid rgba(105, 103, 115, 0.5);
@@ -8109,6 +8129,12 @@ textarea.form-control-lg {
 
 .data-item {
   font-size: 1.5rem;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .data-item {
+    text-align: left;
+  }
 }
 
 .emotion-leaderboard {
@@ -8142,6 +8168,15 @@ textarea.form-control-lg {
   .large-button__title {
     font-size: 2.5rem;
   }
+}
+
+.override-button {
+  display: flex;
+  align-items: center;
+}
+.override-button__icon {
+  font-size: 2rem;
+  padding-right: 0.5rem;
 }
 
 /*# sourceMappingURL=index.css.map */

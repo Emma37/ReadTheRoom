@@ -239,7 +239,7 @@ class Student extends React.Component{
                           "sadness": "😢 Sadness",
                           "surprise": "😮 Surprise",
                           "confused": "🤔 Confused",
-                          "absent": "Unknown"}
+                          "absent": "👻 Not Detected"}
         const devices = ["Front camera", "Back camera"];
 
         // console.log("test", navigator.mediaDevices
@@ -256,21 +256,26 @@ class Student extends React.Component{
         // }
 
         const OverrideButton =
-                <button className="btn btn-danger mt-3" onClick={() => this.setState({ showOverrideSection: true })} disabled={ this.state.overridingDisabled }>
-                    My detected emotion is incorrect
+                <button className="btn btn-secondary" onClick={() => this.setState({ showOverrideSection: true })} disabled={ this.state.overridingDisabled }>
+                    <span className="override-button">
+                        <span className="override-button__icon">⚠</span>
+                        <span>The detected emotion is incorrect</span>
+                    </span>
                 </button>
         ;
 
         const OverrideSection =
             <>
-                <select className="form-select form-select-lg mt-3" onChange={ (e) => {this.setState({overridingEmotion: e.target.value})} }>
-                {
-                    Object.keys(emotionMap).map((key, index) => (
-                        key === "absent" ? null : <option key={index} value={key}>{emotionMap[key]}</option>
-                    ))
-                }
-                </select>
-                <button className="btn btn-primary mt-3" onClick={ this.overrideEmotion }>Submit</button>
+                <div className="d-flex">
+                    <select className="form-select form-select-lg mt-3" onChange={ (e) => {this.setState({overridingEmotion: e.target.value})} }>
+                    {
+                        Object.keys(emotionMap).map((key, index) => (
+                            key === "absent" ? null : <option key={index} value={key}>{emotionMap[key]}</option>
+                        ))
+                    }
+                    </select>
+                    <button className="btn btn-primary mt-3 ml-3" onClick={ this.overrideEmotion }>Submit</button>
+                </div>
             </>
         ;
 
@@ -282,8 +287,8 @@ class Student extends React.Component{
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6">
-                        <div>
-                            <div className="bg-secondary p-2">
+                        <div className="webcam-feed">
+                            <div className="bg-secondary p-2 webcam-feed__notice">
                                 Only you can see this video stream
                             </div>
                             <div id="container">
@@ -303,28 +308,21 @@ class Student extends React.Component{
                             <div>
                                 This is the data being anonymously sent to your teacher which will be aggregated with everyone from your class
                             </div>
-                            <div className="row mt-4 mb-4">
-                                <div className="col-6">
+                            <div className="row mt-4 mb-4 align-items-center">
+                                <div className="col-lg-6">
                                     <div className="data-item">
                                         <div className="data__title">
-                                            Attendance
-                                        </div>
-                                        <div className="data__value">
-                                            {this.state.maxEmotion === "absent" ? "👻 Lost" : "✔ Present"}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6">
-                                    <div className="data-item">
-                                        <div className="data__title">
-                                            Emotion
+                                            Reported Emotion
                                         </div>
                                         <div className="data__value">
                                             {emotionMap[this.state.maxEmotion]}
                                         </div>
                                     </div>
                                 </div>
-                                { this.state.showOverrideSection ? OverrideSection : OverrideButton }
+                                <div className="col-lg-6 mt-3 mt-lg-0">
+                                    { this.state.showOverrideSection ? null : OverrideButton }
+                                </div>
+                                { this.state.showOverrideSection ? OverrideSection : null }
                             </div>
                         </div>
                         <div className="mt-3 divider-top pt-4">
@@ -334,11 +332,13 @@ class Student extends React.Component{
                             <div className="pb-4">
                                 Let your teacher know something is wrong
                             </div>
-                            <SpeechButton id="SB1" text="You're on mute" isActive={!this.state.muteMessage} flipState={this.flipState("muteMessage")}/>
-                            <SpeechButton id="SB2" text="I'm really confused" isActive={!this.state.confusedMessage} flipState={this.flipState("confusedMessage")}/>
-                            <SpeechButton id="SB3" text="Please slow down" isActive={!this.state.slowDownMessage} flipState={this.flipState("slowDownMessage")}/>
-                            <SpeechButton id="SB4" text="There's a bad internet connection" isActive={!this.state.internetConnectionMessage} flipState={this.flipState("internetConnectionMessage")}/>
-                            <SpeechButton id="SB5" text="I can't see the slides" isActive={!this.state.cannotSeeSlidesMessage} flipState={this.flipState("cannotSeeSlidesMessage")}/>
+                            <div className="speech-button__container">
+                                <SpeechButton id="SB1" text="You're on mute" isActive={!this.state.muteMessage} flipState={this.flipState("muteMessage")}/>
+                                <SpeechButton id="SB2" text="I'm really confused" isActive={!this.state.confusedMessage} flipState={this.flipState("confusedMessage")}/>
+                                <SpeechButton id="SB3" text="Please slow down" isActive={!this.state.slowDownMessage} flipState={this.flipState("slowDownMessage")}/>
+                                <SpeechButton id="SB4" text="There's a bad internet connection" isActive={!this.state.internetConnectionMessage} flipState={this.flipState("internetConnectionMessage")}/>
+                                <SpeechButton id="SB5" text="I can't see the slides" isActive={!this.state.cannotSeeSlidesMessage} flipState={this.flipState("cannotSeeSlidesMessage")}/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
             <h1>Welcome to Read the Room!</h1>
-            <div>Read the room lets students anonymously share their emotional responses with their teacher, to help improve remote learning for everyone</div>
+            <div>Read the Room lets students anonymously share their emotional responses with their teacher, to help improve remote learning for everyone</div>
             <div className="mt-4">Pick one of these to get started:</div>
             <div className="row mt-3">
                 <div className="col-lg-6">
