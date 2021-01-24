@@ -7779,6 +7779,8 @@ textarea.form-control-lg {
   border: 3px solid #009fb7;
   background-color: #009fb7;
   font-weight: bold;
+  opacity: 1;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 2s ease-out;
 }
 .speech-button::after {
   position: absolute;
@@ -7791,11 +7793,17 @@ textarea.form-control-lg {
   border-right: 20px solid transparent;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.speech-button:hover, .speech-button:active, .speech-button:focus {
+.speech-button:hover, .speech-button:active, .speech-button:focus, .speech-button:active:focus {
+  box-shadow: none;
   border-color: #33b2c5;
 }
-.speech-button:hover::after, .speech-button:active::after, .speech-button:focus::after {
+.speech-button:hover::after, .speech-button:active::after, .speech-button:focus::after, .speech-button:active:focus::after {
   border-top-color: #33b2c5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.speech-button:active {
+  opacity: 0.4;
+  transition: opacity 0.01s ease-out;
 }
 
 .divider-top {
