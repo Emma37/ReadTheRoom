@@ -89,7 +89,8 @@ class Student extends React.Component{
                       confusedMessage: false,
                       slowDownMessage: false,
                       internetConnectionMessage: false,
-                      cannotSeeSlidesMessage: false
+                      cannotSeeSlidesMessage: false,
+                      showOverrideSection: false
                       };
     }
 
@@ -153,6 +154,26 @@ class Student extends React.Component{
         //     }
         // }
 
+        const OverrideButton = 
+                <button className="btn btn-danger mt-3" onClick={() => this.setState({ showOverrideSection: true })}>
+                    My detected emotion is incorrect
+                </button>
+        ;
+
+        const OverrideSection = 
+            <>
+                <select className="form-select form-select-lg mt-3">
+                {
+                    Object.keys(emotionMap).map((key, index) => ( 
+                    <option key={index}>{emotionMap[key]}</option> 
+                    ))
+                }
+                </select>
+                <button className="btn btn-primary mt-3" onClick={() => this.setState({ showOverrideSection: false })}>Submit</button>
+            </>
+        ;
+
+
         return (
             <>
             <h1 className="text-center mb-3 mb-lg-5">Class: Algebra 28/01/2021</h1>
@@ -184,7 +205,7 @@ class Student extends React.Component{
                             <div>
                                 This is the data being anonymously sent to your teacher which will be aggregated with everyone from your class
                             </div>
-                            <div className="row mt-4 mb-5">
+                            <div className="row mt-4 mb-4">
                                 <div className="col-6">
                                     <div className="data-item">
                                         <div className="data__title">
@@ -205,6 +226,8 @@ class Student extends React.Component{
                                         </div>
                                     </div>
                                 </div>
+                                { this.state.showOverrideSection ? OverrideSection : OverrideButton }
+
                             </div>
                         </div>
                         <div className="mt-3 divider-top pt-4">
