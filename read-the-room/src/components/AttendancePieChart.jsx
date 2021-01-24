@@ -21,17 +21,17 @@ class AttendancePieChart extends React.Component {
     //   data.arcClass = 'arc';
 
     // pass in real values in props
-    const mockData = [
-        { title: 'Absent', value: 5, color: '#696773' },
-        { title: 'Present', value: 26, color: '#009fb7' },
-        { title: 'Away', value: 2, color: ' #fed766' },
-    ];
+    // const mockData = [
+    //     { title: 'Absent', value: 5, color: '#696773' },
+    //     { title: 'Present', value: 26, color: '#009fb7' },
+    //     { title: 'Away', value: 2, color: ' #fed766' },
+    // ];
 
 
     return (
       <div>
           <PieChart
-            data={mockData}
+            data={this.props.attendanceData}
             radius={40}
             label={({ dataEntry }) => dataEntry.title}
             labelStyle={{

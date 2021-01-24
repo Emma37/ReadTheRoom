@@ -5,6 +5,9 @@ import os
 import io
 import datetime
 import operator
+import pandas as pd
+import xgboost as xgb
+from xgboost import XGBClassifier
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person
@@ -75,6 +78,19 @@ def check_emotion():
         scores['sadness']   = face_emotions.sadness
         scores['surprise']  = face_emotions.surprise
         emotion = max(scores.items(), key=operator.itemgetter(1))[0]
+        print(scores)
+        bdt_model = XGBClassifier()
+        bdt_model.load_model('./first_model.model')
+
+        scores_df = pd.DataFrame.from_dict(scores, orient='index').transpose()
+        features = list(set(scores_df.columns))
+        print(scores_df[features].head())
+        confusion = bdt_model.predict(scores_df[features])
+        # print(confusion)
+        max_score = scores[emotion]
+
+        if (confusion[0] > 0.5) & (max_score<0.8):
+            emotion = 'confused'
 
     print(emotion)
     return {"max_emotion": emotion}

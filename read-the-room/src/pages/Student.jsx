@@ -137,6 +137,7 @@ class Student extends React.Component{
                           "happiness": "😄 Happiness",
                           "sadness": "😢 Sadness",
                           "surprise": "😮 Surprise",
+                          "confused": "🤔 Confused",
                           "absent": "Unknown"}
         const devices = ["Front camera", "Back camera"];
 
