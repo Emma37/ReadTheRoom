@@ -37,7 +37,13 @@ class Student extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {maxEmotion: "neutral"};
+        this.state = {maxEmotion: "absent",
+                      muteMessage: false,
+                      confuseMessage: false,
+                      slowDownMessage: false,
+                      internetConnectionMessage: false,
+                      cannotSeeFaceMessage: false
+                      };
     }
 
     componentDidMount(){
@@ -74,7 +80,8 @@ class Student extends React.Component{
                           "fear": "😨 Fear",
                           "happiness": "😄 Happiness",
                           "sadness": "😢 Sadness",
-                          "surprise": "😮 Surprise"}
+                          "surprise": "😮 Surprise",
+                          "absent": "Unknown"}
         const devices = ["Front camera", "Back camera"];
 
         // console.log("test", navigator.mediaDevices
@@ -128,7 +135,7 @@ class Student extends React.Component{
                                             Attendance
                                         </div>
                                         <div className="data__value">
-                                            ✔ Present
+                                            {this.state.maxEmotion == "absent" ? "👻 Lost" : "✔ Present"}
                                         </div>
                                     </div>
                                 </div>
@@ -151,11 +158,11 @@ class Student extends React.Component{
                             <div className="pb-4">
                                 Let your teacher know something is wrong
                             </div>
-                            <SpeechButton id="SB1" text="You're on mute" />
-                            <SpeechButton id="SB2" text="I'm really confused" />
-                            <SpeechButton id="SB3" text="Please slow down" />
-                            <SpeechButton id="SB4" text="There's a bad internet connection" />
-                            <SpeechButton id="SB5" text="I can't see the slides" />
+                            <SpeechButton id="SB1" text="You're on mute" isActive={true} />
+                            <SpeechButton id="SB2" text="I'm really confused" isActive={true}/>
+                            <SpeechButton id="SB3" text="Please slow down" isActive={true}/>
+                            <SpeechButton id="SB4" text="There's a bad internet connection" isActive={true}/>
+                            <SpeechButton id="SB5" text="I can't see the slides" isActive={true}/>
                         </div>
                     </div>
                 </div>
