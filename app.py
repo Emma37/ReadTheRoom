@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory, request
 from collections import Counter
 import json
 import os
+import io
 import datetime
 import operator
 from azure.cognitiveservices.vision.face import FaceClient
@@ -14,6 +15,7 @@ students = {}
 timeout_time = 10
 KEY = "716ae75b38b84acfb73467fb1d65fd7d"
 ENDPOINT = "https://hex-camb-faceservice.cognitiveservices.azure.com/"
+
 
 @app.route("/")
 def index():
@@ -50,11 +52,11 @@ def send_current_data():
             "commands": command_counts
             }
 
-@app.route("/image_analysis")
+@app.route("/image_analysis", methods=["POST"])
 def check_emotion():
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-    frame = request.data
+    frame = io.BytesIO(request.data)
 
     detected_faces = face_client.face.detect_with_stream(frame, return_face_attributes=["emotion"])
     if not detected_faces:
@@ -73,6 +75,7 @@ def check_emotion():
         scores['surprise']  = face_emotions.surprise
         emotion = max(scores.items(), key=operator.itemgetter(1))[0]
 
+    print(emotion)
     return {"max_emotion": emotion}
 
 
