@@ -20,6 +20,9 @@ jobs:
       with:
         python-version: '3.8'
 
+    - name: Install Azure services
+      script: pip install --upgrade azure-cognitiveservices-vision-face
+
     - name: Build using AppService-Build
       uses: azure/appservice-build@v2
       with:
