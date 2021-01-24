@@ -1,6 +1,7 @@
 import React from 'react';
 import AttendancePieChart from '../components/AttendancePieChart';
 import EmotionLeaderBoard from '../components/EmotionLeaderBoard';
+import SimpleNotification from '../components/Notification';
 import axios from 'axios';
 
 
@@ -84,9 +85,10 @@ class Teacher extends React.Component{
                     <AttendancePieChart />
                 </div>
             </div>
-            </>
-        )
-    }
+            <SimpleNotification message="You're on mute"/>
+        </>
+    )
+  }
 }
 
 export default Teacher;
