@@ -19,6 +19,12 @@ class Teacher extends React.Component{
     keys = ["neutral", "anger", "contempt", "disgust", "fear", "happiness", "sadness", "surprise"]
     absentColor = "#696773"
     presentColor = "#009fb7"
+    messagesMap = {"muted": "Your may be muted.",
+                   "no_slides": "Your slides can't be seen.",
+                   "slow_internet": "Your image quality seems to be degraded.",
+                   "slow_down": "Calm down. Breathe deeply.",
+                   "confused": "Your students are confused."}
+    messageKeys = ["muted", "no_slides", "slow_internet", "slow_down", "confused"]
 
     constructor(props) {
         super(props);
@@ -43,6 +49,7 @@ class Teacher extends React.Component{
             axios({method: "get",
               url: "./current_data"})
             .then(data => {
+                // Handle emotions
                 var givenData = data.data;
                 var newData = {};
                 var presentStudents = 0;
@@ -56,7 +63,10 @@ class Teacher extends React.Component{
                         newData[this.emotionMap[key]] = 0;
                     }
                 })
+
+                // Handle absence
                 var absentStudents = 0;
+                var attendanceData = [];
                 if ("absent" in givenData.users){
                     absentStudents += givenData.users.absent;
                 }
@@ -67,10 +77,24 @@ class Teacher extends React.Component{
                     attendanceData = [{title: "Present", value: 5, color: this.presentColor}];
                 }
                 else{
-                    var attendanceData = [{title: "Absent", value: absentStudents, color: this.absentColor},
-                                          {title: "Present", value: presentStudents, color: this.presentColor}]
+                    attendanceData = [{title: "Absent", value: absentStudents, color: this.absentColor},
+                                      {title: "Present", value: presentStudents, color: this.presentColor}]
                 }
+
                 this.setState({emotionsData: newData, attendanceData: attendanceData});
+
+                // Handle messages
+                var maxCount = 0;
+                var maxMessage = null;
+                this.messageKeys.forEach(key => {
+                    if (key in givenData.commands && givenData.commands[key] > maxCount){
+                        maxCount = givenData.commands[key];
+                        maxMessage = key;
+                    }
+                })
+                if (maxMessage != null){
+                    new Notification('Read the Room: ' + this.messagesMap[maxMessage]);
+                }
             })
         }, 3000);
         return intervalObject;
@@ -78,6 +102,11 @@ class Teacher extends React.Component{
 
     componentDidMount(){
         this.checkDataIntervalObject = this.checkDataAtIntervals();
+        if (!("Notification" in window)) {
+          console.log("This browser does not support desktop notification");
+        } else {
+          Notification.requestPermission();
+        }
     }
 
     componentWillUnmount(){
@@ -105,7 +134,7 @@ class Teacher extends React.Component{
                     <AttendancePieChart attendanceData={this.state.attendanceData}/>
                 </div>
             </div>
-            <SimpleNotification message="You're on mute"/>
+            // <SimpleNotification message="You're on mute"/>
         </>
     )
   }
