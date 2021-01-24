@@ -1,16 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { ImageCapture } from 'image-capture';
 import { render } from 'react-dom';
 import SpeechButton from '../components/SpeechButton';
 
 
-const Student = () => {
+function sendFaceAtIntervals(imageCapture) {
+    const url = "./image_analysis"
+    var intervalObject = setInterval(function(){
+        // console.log(videoRef)
+        // let data = videoRef.current.toDataURL('image/jpg');
+        // fetch(data)
+        // .then(res => res.blob())
+        imageCapture.takePhoto()
+        .then(blobData => {
+           axios({
+            method: "post",
+            url: url,
+            contentType: "application/octet-stream",
+            data: blobData
+           })
+           .then(function(data) {
+              console.log(JSON.stringify(data));
+          })
+           .catch(function(err) {
+              console.log(JSON.stringify(err));
+          })
+       });
+    }, 1000);
+    return intervalObject;
+}
 
+
+const Student = () => {
     const videoRef = React.createRef();
+    var sendIntervalObject = null;
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: {facingMode: "user"}})
     .then(function(stream) {
         videoRef.current.srcObject = stream;
+
+        const mediaStreamTrack = stream.getVideoTracks()[0];
+        const imageCapture = new ImageCapture(mediaStreamTrack);
+        sendIntervalObject = sendFaceAtIntervals(imageCapture);
     })
     .catch(function(err0r) {
         console.log(err0r);
@@ -18,7 +51,17 @@ const Student = () => {
     });
     }
 
+    useEffect(() => {
+        return () => {
+            if (sendIntervalObject != null){
+                console.log("Unmounting")
+                clearInterval(sendIntervalObject);
+            }
+        }
+    }, [])
+
     const items = [];
+    var emotions = ["test"];
     const devices = ["Front camera", "Back camera"];
 
     // console.log("test", navigator.mediaDevices
