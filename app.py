@@ -18,6 +18,8 @@ students = {}
 timeout_time = 10
 KEY = os.environ["face_API_key"]
 ENDPOINT = os.environ["face_API_Endpoint"]
+bdt_model = XGBClassifier()
+bdt_model.load_model('./first_model.model')
 
 
 @app.route("/")
@@ -78,13 +80,11 @@ def check_emotion():
         scores['sadness']   = face_emotions.sadness
         scores['surprise']  = face_emotions.surprise
         emotion = max(scores.items(), key=operator.itemgetter(1))[0]
-        print(scores)
-        bdt_model = XGBClassifier()
-        bdt_model.load_model('./first_model.model')
+        # print(scores)
 
         scores_df = pd.DataFrame.from_dict(scores, orient='index').transpose()
         features = list(set(scores_df.columns))
-        print(scores_df[features].head())
+        # print(scores_df[features].head())
         confusion = bdt_model.predict(scores_df[features])
         # print(confusion)
         max_score = scores[emotion]
