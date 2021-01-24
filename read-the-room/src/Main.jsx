@@ -7,7 +7,7 @@ import Student from './pages/Student';
 
 const Main = () => {
   return (
-      <div className="container">
+      <div className="container pb-3">
             <Switch> {/* The Switch decides which component to show based on the current URL.*/}
             <Route exact path='/' component={Home}></Route>
             <Route exact path='/teacher' component={Teacher}></Route>

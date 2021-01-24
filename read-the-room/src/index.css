@@ -1,11 +1,11 @@
 @charset "UTF-8";
 @font-face {
   font-family: "Yusei Magic";
-  src: url("fonts/YuseiMagic-Regular.ttf") format("truetype");
+  src: url("/src/fonts/YuseiMagic-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Montserrat";
-  src: url("fonts/Montserrat-Regular.ttf") format("truetype");
+  src: url("/src/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 .sr-only {
   position: absolute;
@@ -7817,6 +7817,34 @@ textarea.form-control-lg {
 .emotion-leaderboard {
   list-style: none;
   padding-inline-start: 0;
+}
+
+.large-button {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+}
+.large-button__icon {
+  font-size: 3rem;
+}
+.large-button__title {
+  font-size: 2rem;
+}
+@media (min-width: 768px) {
+  .large-button {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    font-size: 1.5rem;
+  }
+  .large-button__icon {
+    font-size: 5rem;
+  }
+  .large-button__title {
+    font-size: 2.5rem;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

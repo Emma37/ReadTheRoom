@@ -1,0 +1,30 @@
+.large-button {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+
+  &__icon {
+    font-size: 3rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    font-size: 1.5rem;
+
+    &__icon {
+      font-size: 5rem;
+    }
+
+    &__title {
+      font-size: 2.5rem;
+    }
+  }
+}
