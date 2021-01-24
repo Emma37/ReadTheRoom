@@ -7,10 +7,11 @@ function SpeechButton(props){
     function handleClick(e) {
         e.preventDefault();
 
-        props.isActive = false;
+        // console.log(props.flipState);
+        props.flipState();
         var button = document.getElementById(props.id);
         button.disabled = true;
-        setTimeout(function(){props.isActive=true;}, 3000);
+        setTimeout(function(){props.flipState(); button.disabled=false;}, 3000);
     }
 
     return (

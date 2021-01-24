@@ -25,7 +25,8 @@ class Student extends React.Component{
                })
                .then(data => {
                   console.log(JSON.stringify(data));
-                  this.setState({maxEmotion: data.data.max_emotion})
+                  this.setState({maxEmotion: data.data.max_emotion});
+                  console.log(this.state.muteMessage);
               })
               //  .catch(function(err) {
               //     console.log(JSON.stringify(err));
@@ -39,10 +40,10 @@ class Student extends React.Component{
         super(props);
         this.state = {maxEmotion: "absent",
                       muteMessage: false,
-                      confuseMessage: false,
+                      confusedMessage: false,
                       slowDownMessage: false,
                       internetConnectionMessage: false,
-                      cannotSeeFaceMessage: false
+                      cannotSeeSlidesMessage: false
                       };
     }
 
@@ -68,6 +69,14 @@ class Student extends React.Component{
             console.log("Unmounting")
             this.videoRef.current.srcObject.getTracks().forEach((track) => track.stop())
             clearInterval(this.sendIntervalObject);
+        }
+    }
+
+    flipState = (state) => {
+        return () =>{
+            var newDict = {};
+            newDict[state] = !this.state[state];
+            this.setState(newDict);
         }
     }
 
@@ -135,7 +144,7 @@ class Student extends React.Component{
                                             Attendance
                                         </div>
                                         <div className="data__value">
-                                            {this.state.maxEmotion == "absent" ? "👻 Lost" : "✔ Present"}
+                                            {this.state.maxEmotion === "absent" ? "👻 Lost" : "✔ Present"}
                                         </div>
                                     </div>
                                 </div>
@@ -158,11 +167,11 @@ class Student extends React.Component{
                             <div className="pb-4">
                                 Let your teacher know something is wrong
                             </div>
-                            <SpeechButton id="SB1" text="You're on mute" isActive={true} />
-                            <SpeechButton id="SB2" text="I'm really confused" isActive={true}/>
-                            <SpeechButton id="SB3" text="Please slow down" isActive={true}/>
-                            <SpeechButton id="SB4" text="There's a bad internet connection" isActive={true}/>
-                            <SpeechButton id="SB5" text="I can't see the slides" isActive={true}/>
+                            <SpeechButton id="SB1" text="You're on mute" isActive={!this.state.muteMessage} flipState={this.flipState("muteMessage")}/>
+                            <SpeechButton id="SB2" text="I'm really confused" isActive={!this.state.confusedMessage} flipState={this.flipState("confusedMessage")}/>
+                            <SpeechButton id="SB3" text="Please slow down" isActive={!this.state.slowDownMessage} flipState={this.flipState("slowDownMessage")}/>
+                            <SpeechButton id="SB4" text="There's a bad internet connection" isActive={!this.state.internetConnectionMessage} flipState={this.flipState("internetConnectionMessage")}/>
+                            <SpeechButton id="SB5" text="I can't see the slides" isActive={!this.state.cannotSeeSlidesMessage} flipState={this.flipState("cannotSeeSlidesMessage")}/>
                         </div>
                     </div>
                 </div>
