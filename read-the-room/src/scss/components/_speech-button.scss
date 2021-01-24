@@ -1,0 +1,30 @@
+.speech-button {
+  position: relative;
+  margin-bottom: 2rem;
+  margin-right: 1rem;
+  border: 3px solid $primary;
+  background-color: $primary;
+  font-weight: bold;
+
+  &::after {
+    position: absolute;
+    top: 100%;
+    left: 0.2rem;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 15px solid $primary;
+    border-right: 20px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: #33b2c5;
+    &::after {
+      border-top-color: #33b2c5;
+    }
+  }
+}
