@@ -33,7 +33,7 @@ class AttendancePieChart extends React.Component {
           <PieChart
             data={this.props.attendanceData}
             radius={40}
-            label={({ dataEntry }) => dataEntry.title}
+            label={({ dataEntry }) => dataEntry.title + " (" + String(dataEntry.value) + ")"}
             labelStyle={{
                 fontSize: 0.25+'rem',
                 textAlign: 'right',

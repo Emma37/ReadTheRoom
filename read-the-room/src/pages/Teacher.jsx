@@ -127,10 +127,10 @@ class Teacher extends React.Component{
             <div class="row">
                 <div class="col-lg-6">
                     <h2>Emotional Engagement</h2>
-                    <div>See what emotions your students are showing</div>
+                    <div className="mb-4 mb-lg-5">See what emotions your students are showing</div>
                     <EmotionLeaderBoard data={this.state.emotionsData}/>
                 </div>
-                <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="col-lg-6 mt-4 mt-lg-0">
                     <h2>Attendance</h2>
                     <div>Check the class attendance</div>
                     <AttendancePieChart attendanceData={this.state.attendanceData}/>
