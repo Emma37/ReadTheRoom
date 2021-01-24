@@ -15,8 +15,9 @@ class Teacher extends React.Component{
                   "happiness": "😄 Happiness",
                   "sadness": "😢 Sadness",
                   "surprise": "😮 Surprise",
+                  "confused": "🤔 Confused",
                   "absent": "Unknown"}
-    keys = ["neutral", "anger", "contempt", "disgust", "fear", "happiness", "sadness", "surprise"]
+    keys = ["neutral", "anger", "contempt", "disgust", "fear", "happiness", "sadness", "surprise", "confused"]
     absentColor = "#696773"
     presentColor = "#009fb7"
     messagesMap = {"muted": "Your may be muted.",
@@ -36,7 +37,8 @@ class Teacher extends React.Component{
             "😄 Happiness": 0,
             "🙂 Neutral": 0,
             "😥 Sadness": 0,
-            "😮 Surprise": 0
+            "😮 Surprise": 0,
+            "🤔 Confused": 0,
         };
         var mockAttendanceData = [{title: "Absent", value: 5,
                                    color: this.absentColor}]
