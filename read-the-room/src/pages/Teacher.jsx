@@ -20,10 +20,10 @@ class Teacher extends React.Component{
     keys = ["neutral", "anger", "contempt", "disgust", "fear", "happiness", "sadness", "surprise", "confused"]
     absentColor = "#696773"
     presentColor = "#009fb7"
-    messagesMap = {"muted": "Your may be muted.",
+    messagesMap = {"muted": "You may be muted.",
                    "no_slides": "Your slides can't be seen.",
                    "slow_internet": "Your image quality seems to be degraded.",
-                   "slow_down": "Calm down. Breathe deeply.",
+                   "slow_down": "You may be going too fast.",
                    "confused": "Your students are confused."}
     messageKeys = ["muted", "no_slides", "slow_internet", "slow_down", "confused"]
 
