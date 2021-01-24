@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 students = {}
 timeout_time = 10
-KEY = "716ae75b38b84acfb73467fb1d65fd7d"
-ENDPOINT = "https://hex-camb-faceservice.cognitiveservices.azure.com/"
+KEY = os.environ["face_API_key"]
+ENDPOINT = os.environ["face_API_Endpoint"]
 
 
 @app.route("/")
