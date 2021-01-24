@@ -36,7 +36,7 @@ const Student = () => {
 
     return (
         <>
-        <h1 className="text-center mb-4">Class: Algebra 28/01/2021</h1>
+        <h1 className="text-center mb-3 mb-lg-5">Class: Algebra 28/01/2021</h1>
 
         <div className="container">
             <div className="row">
@@ -50,24 +50,56 @@ const Student = () => {
                             </video>
                         </div>
                     </div>
-                    <select>
+                    <select className="form-select form-select-lg">
                         {devices.map((value, index) => {
                             return <option>{value}</option>
                         })}
                         {/* {items} */}
                     </select>
                 </div>
-                <div className="col-lg-6">
-                <div>
-                    <div>This is the data being sent to your teacher and will be aggregated with everyone from your class</div>
-                        Emotion
-                    </div>
+                <div className="col-lg-6 mt-3 mt-lg-0">
                     <div>
-                        <div>Need to tell your teacher something?</div>
-                        <SpeechButton text="Please slow down" />
+                        <h2>
+                            Your data
+                        </h2>
+                        <div>
+                            This is the data being anonymously sent to your teacher which will be aggregated with everyone from your class
+                        </div>
+                        <div className="row mt-4 mb-5">
+                            <div className="col-6">
+                                <div className="data-item">
+                                    <div className="data__title">
+                                        Attendance
+                                    </div>
+                                    <div className="data__value">
+                                        ✔ Present
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="data-item">
+                                    <div className="data__title">
+                                        Emotion
+                                    </div>
+                                    <div className="data__value">
+                                        😐 Neutral
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-3 divider-top pt-4">
+                        <h2>
+                            Raise an issue
+                        </h2>
+                        <div className="pb-4">
+                            Let your teacher know something is wrong
+                        </div>
                         <SpeechButton text="You're on mute" />
-                        <SpeechButton text="There's a bad internet connection" />
                         <SpeechButton text="I'm really confused" />
+                        <SpeechButton text="Please slow down" />
+                        <SpeechButton text="There's a bad internet connection" />
+                        <SpeechButton text="I can't see the slides" />
                     </div>
                 </div>
             </div>
