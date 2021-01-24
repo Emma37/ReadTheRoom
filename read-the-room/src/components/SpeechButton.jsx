@@ -10,8 +10,7 @@ function SpeechButton(props){
         isDisabled = true;
         var button = document.getElementById(props.id);
         button.disabled = true;
-        console.log(isDisabled);
-        setTimeout(function(){button.disabled=false;console.log(isDisabled);}, 3000);
+        setTimeout(function(){button.disabled=false;}, 3000);
     }
 
     return (
