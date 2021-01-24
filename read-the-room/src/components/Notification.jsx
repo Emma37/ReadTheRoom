@@ -22,9 +22,9 @@ class SimpleNotification extends Component {
     return (
       <div>
           {/* TODO remove button once integrated */}
-        <button onClick={this.showNotification}>
+        {/*<button onClick={this.showNotification}>
           Click to show notification
-        </button>
+        </button>*/}
       </div>
     );
   }
