@@ -1,6 +1,7 @@
 import React from 'react';
 import AttendancePieChart from '../components/AttendancePieChart';
 import EmotionLeaderBoard from '../components/EmotionLeaderBoard';
+import SimpleNotification from '../components/Notification';
 
 
 const Teacher = () => {
@@ -22,6 +23,7 @@ const Teacher = () => {
                 <AttendancePieChart />
             </div>
         </div>
+        <SimpleNotification message="You're on mute"/>
         </>
     )
 }
