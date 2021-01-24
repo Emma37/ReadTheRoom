@@ -1,4 +1,4 @@
 # ReadTheRoom
 HexCambridge Submission
 
-Try our app [here](hexcambridgewebapp.azurewebsites.net)!
+Try our app [here](https://hexcambridgewebapp.azurewebsites.net/)!
