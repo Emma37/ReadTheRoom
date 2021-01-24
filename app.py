@@ -108,7 +108,7 @@ def update_data():
 @app.route("/<string:path>")
 def catch_all(path):
     print(path)
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
+    if path != "" and os.path.exists("read-the-room/build" + '/' + path):
         return send_from_directory("read-the-room/build", path)
     else:
         return send_from_directory("read-the-room/build", 'index.html')
