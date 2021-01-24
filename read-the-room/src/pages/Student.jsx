@@ -95,11 +95,11 @@ const Student = () => {
                         <div className="pb-4">
                             Let your teacher know something is wrong
                         </div>
-                        <SpeechButton text="You're on mute" />
-                        <SpeechButton text="I'm really confused" />
-                        <SpeechButton text="Please slow down" />
-                        <SpeechButton text="There's a bad internet connection" />
-                        <SpeechButton text="I can't see the slides" />
+                        <SpeechButton id="SB1" text="You're on mute" />
+                        <SpeechButton id="SB2" text="I'm really confused" />
+                        <SpeechButton id="SB3" text="Please slow down" />
+                        <SpeechButton id="SB4" text="There's a bad internet connection" />
+                        <SpeechButton id="SB5" text="I can't see the slides" />
                     </div>
                 </div>
             </div>

@@ -5,6 +5,10 @@
   border: 3px solid $primary;
   background-color: $primary;
   font-weight: bold;
+  opacity: 1;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    opacity 2s ease-out;
 
   &::after {
     position: absolute;
@@ -21,10 +25,19 @@
 
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  &:active:focus {
+    box-shadow: none;
     border-color: #33b2c5;
     &::after {
       border-top-color: #33b2c5;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
+  }
+
+  &:active {
+    opacity: 0.4;
+    transition: opacity 0.01s ease-out;
   }
 }
