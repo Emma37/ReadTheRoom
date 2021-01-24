@@ -7,7 +7,6 @@ import datetime
 import operator
 import pandas as pd
 import xgboost as xgb
-import operator
 from xgboost import XGBClassifier
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
