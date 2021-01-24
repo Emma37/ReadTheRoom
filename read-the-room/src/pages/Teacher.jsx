@@ -17,6 +17,8 @@ class Teacher extends React.Component{
                   "surprise": "😮 Surprise",
                   "absent": "Unknown"}
     keys = ["neutral", "anger", "contempt", "disgust", "fear", "happiness", "sadness", "surprise"]
+    absentColor = "#696773"
+    presentColor = "#009fb7"
 
     constructor(props) {
         super(props);
@@ -30,7 +32,9 @@ class Teacher extends React.Component{
             "😥 Sadness": 0,
             "😮 Surprise": 0
         };
-        this.state = {emotionsData: data};
+        var mockAttendanceData = [{title: "Absent", value: 5,
+                                   color: this.absentColor}]
+        this.state = {emotionsData: data, attendanceData: mockAttendanceData};
     }
 
     checkDataAtIntervals = () => {
@@ -41,16 +45,32 @@ class Teacher extends React.Component{
             .then(data => {
                 var givenData = data.data;
                 var newData = {};
+                var presentStudents = 0;
                 this.keys.forEach(key => {
                     console.log(key);
                     if (key in givenData.users){
                         newData[this.emotionMap[key]] = givenData.users[key];
+                        presentStudents += givenData.users[key];
                     }
                     else{
                         newData[this.emotionMap[key]] = 0;
                     }
                 })
-                this.setState({emotionsData: newData});
+                var absentStudents = 0;
+                if ("absent" in givenData.users){
+                    absentStudents += givenData.users.absent;
+                }
+                if (presentStudents === 0){
+                    attendanceData = [{title: "Absent", value: 5, color: this.absentColor}];
+                }
+                else if (absentStudents === 0){
+                    attendanceData = [{title: "Present", value: 5, color: this.presentColor}];
+                }
+                else{
+                    var attendanceData = [{title: "Absent", value: absentStudents, color: this.absentColor},
+                                          {title: "Present", value: presentStudents, color: this.presentColor}]
+                }
+                this.setState({emotionsData: newData, attendanceData: attendanceData});
             })
         }, 3000);
         return intervalObject;
@@ -82,7 +102,7 @@ class Teacher extends React.Component{
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <h2>Attendance</h2>
                     <div>Check the class attendance</div>
-                    <AttendancePieChart />
+                    <AttendancePieChart attendanceData={this.state.attendanceData}/>
                 </div>
             </div>
             <SimpleNotification message="You're on mute"/>
