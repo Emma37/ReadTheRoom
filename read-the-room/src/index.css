@@ -7814,4 +7814,9 @@ textarea.form-control-lg {
   font-size: 1.5rem;
 }
 
+.emotion-leaderboard {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
 /*# sourceMappingURL=index.css.map */
