@@ -8,6 +8,30 @@ import SpeechButton from '../components/SpeechButton';
 class Student extends React.Component{
     videoRef = React.createRef();
     sendIntervalObject = null;
+    userId = Math.floor(Math.random() * 10000);
+
+    sendCurrentData = () => {
+        var dataToSend = {main_emotion: this.state.maxEmotion, id: this.userId};
+        if (this.state.muteMessage === true){
+            dataToSend["active_command"] = "muted";
+        }
+        else if (this.state.cannotSeeSlidesMessage === true){
+            dataToSend["active_command"] = "no_slides"
+        }
+        else if (this.state.internetConnectionMessage === true){
+            dataToSend["active_command"] = "slow_internet";
+        }
+        else if (this.state.slowDownMessage === true){
+            dataToSend["active_command"] = "slow_down";
+        }
+        else if (this.state.confusedMessage === true){
+            dataToSend["active_command"] = "confused";
+        }
+        axios({method: "post",
+              data: dataToSend,
+              url: "./send_data"})
+        .then(data => {console.log(JSON.stringify(data))})
+    }
 
     sendFaceAtIntervals = (imageCapture) => {
         const url = "./image_analysis"
@@ -26,7 +50,7 @@ class Student extends React.Component{
                .then(data => {
                   console.log(JSON.stringify(data));
                   this.setState({maxEmotion: data.data.max_emotion});
-                  console.log(this.state.muteMessage);
+                  this.sendCurrentData();
               })
               //  .catch(function(err) {
               //     console.log(JSON.stringify(err));
