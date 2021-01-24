@@ -80,10 +80,12 @@ class Student extends React.Component{
         }
     }
 
-    sendFaceAtIntervals = (imageCapture) => {
+    sendFaceAtIntervals = () => {
         const url = "./image_analysis"
         var intervalObject = setInterval(() => {
             if (!this.state.overridingDisabled){
+                const mediaStreamTrack = this.state.currentStream.getVideoTracks()[0];
+                const imageCapture = new ImageCapture(mediaStreamTrack);
                 this.captureImage(imageCapture)
                 .then(blobData => {
                    axios({
@@ -191,10 +193,8 @@ class Student extends React.Component{
             navigator.mediaDevices.getUserMedia({video: {facingMode: "user"}})
         .then(stream => {
             this.videoRef.current.srcObject = stream;
-
-            const mediaStreamTrack = stream.getVideoTracks()[0];
-            const imageCapture = new ImageCapture(mediaStreamTrack);
-            this.sendIntervalObject = this.sendFaceAtIntervals(imageCapture);
+            this.setState({currentStream: stream});
+            this.sendIntervalObject = this.sendFaceAtIntervals();
         })
         .catch(err0r => {
             console.log(err0r);

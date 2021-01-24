@@ -19,7 +19,7 @@ timeout_time = 10
 KEY = os.environ["face_API_key"]
 ENDPOINT = os.environ["face_API_Endpoint"]
 bdt_model = XGBClassifier()
-bdt_model.load_model('./bdt.model')
+bdt_model.load_model('./first_model.model')
 
 
 @app.route("/")
