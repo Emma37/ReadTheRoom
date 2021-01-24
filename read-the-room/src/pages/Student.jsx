@@ -115,12 +115,30 @@ class Student extends React.Component{
                       slowDownMessage: false,
                       internetConnectionMessage: false,
                       cannotSeeSlidesMessage: false,
-                      showOverrideSection: false
+                      showOverrideSection: false,
+                      cameraOptions: []
                       };
     }
 
+    gotDevices = (mediaDevices) => {
+        let count = 1;
+        var newCameraOptions = [];
+        mediaDevices.forEach(mediaDevice => {
+            if (mediaDevice.kind === 'videoinput') {
+              const value = mediaDevice.deviceId;
+              const label = mediaDevice.label || `Camera ${count++}`;
+              newCameraOptions.push(<option value={value}>{label}</option>);
+            }
+        });
+
+        this.setState({cameraOptions: newCameraOptions});
+        console.log(this.state.cameraOptions);
+    }
+
     componentDidMount(){
-        console.log(this.browserName);
+
+        navigator.mediaDevices.enumerateDevices().then(this.gotDevices);
+
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({video: {facingMode: "user"}})
         .then(stream => {
@@ -195,6 +213,9 @@ class Student extends React.Component{
                     ))
                 }
                 </select>
+                <select className="form-select form-select-lg mt-3">
+                {this.state.cameraOptions}
+                </select>
                 <button className="btn btn-primary mt-3" onClick={() => this.setState({ showOverrideSection: false })}>Submit</button>
             </>
         ;
@@ -217,10 +238,7 @@ class Student extends React.Component{
                             </div>
                         </div>
                         <select className="form-select form-select-lg">
-                            {devices.map((value, index) => {
-                                return <option>{value}</option>
-                            })}
-                            {/* {items} */}
+                            {this.state.cameraOptions}
                         </select>
                     </div>
                     <div className="col-lg-6 mt-3 mt-lg-0">
