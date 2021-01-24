@@ -35,8 +35,30 @@ class Student extends React.Component{
 
     sendFaceAtIntervals = (imageCapture) => {
         const url = "./image_analysis"
+        const canvas = document.createElement('canvas');
         var intervalObject = setInterval(() => {
-            imageCapture.takePhoto()
+            imageCapture.grabFrame()
+            .then(img => {
+                console.log(img); // ImageBitmap
+                return new Promise(res => {
+                  // resize it to the size of our ImageBitmap
+                  canvas.width = img.width;
+                  canvas.height = img.height;
+                  // try to get a bitmaprenderer context
+                  let ctx = canvas.getContext('bitmaprenderer');
+                  if(ctx) {
+                    // transfer the ImageBitmap to it
+                    ctx.transferFromImageBitmap(img);
+                  }
+                  else {
+                    // in case someone supports createImageBitmap only
+                    // twice in memory...
+                    canvas.getContext('2d').drawImage(img,0,0);
+                  }
+                  // get it back as a Blob
+                  canvas.toBlob(res);
+                });
+              })
             .then(blobData => {
                axios({
                 method: "post",
