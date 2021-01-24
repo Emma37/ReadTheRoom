@@ -8,16 +8,15 @@ import SpeechButton from '../components/SpeechButton';
 function sendFaceAtIntervals(imageCapture) {
     const url = "./image_analysis"
     var intervalObject = setInterval(function(){
-        // console.log(videoRef)
-        // let data = videoRef.current.toDataURL('image/jpg');
-        // fetch(data)
-        // .then(res => res.blob())
         imageCapture.takePhoto()
         .then(blobData => {
            axios({
             method: "post",
             url: url,
-            contentType: "application/octet-stream",
+            // contentType: "application/octet-stream",
+            headers:{
+                "content-type":"application/octet-stream",
+            },
             data: blobData
            })
            .then(function(data) {
@@ -27,7 +26,7 @@ function sendFaceAtIntervals(imageCapture) {
               console.log(JSON.stringify(err));
           })
        });
-    }, 1000);
+    }, 3000);
     return intervalObject;
 }
 
